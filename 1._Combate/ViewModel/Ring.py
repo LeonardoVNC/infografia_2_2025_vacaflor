@@ -1,6 +1,6 @@
 import random
-from ..Model.Character import Character
-from ..View.Console import Console
+from Model.Character import Character
+from View.Console import Console
 
 class Ring:
     num_players = 0
