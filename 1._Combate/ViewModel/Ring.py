@@ -1,6 +1,7 @@
 import random
 from Model.Character import Character
 from View.Console import Console
+from Model.CharacterSubclasses import *
 
 class Ring:
     num_players = 0
@@ -29,8 +30,8 @@ class Ring:
         self._setCharacters()
         
     def _setCharacters(self):
-        for i in range(1, self.num_players+1):
-            print("Empecemos a crear el PJ del jugador",i)
+        for i in range(self.num_players):
+            print("Empecemos a crear el PJ del jugador",i+1)
 
             charaName = input("Qué nombre tendrá el personaje?\n")
             self.cons.cls();
@@ -41,9 +42,31 @@ class Ring:
                 charaClass = random.randint(1,4)
             self.cons.cls();
 
-            #currentChar: Character = Character() Metele las subclases aca
-            print("Listo el PJ para el jugador",i)
+            currenctChara: Character
+            if (charaClass == 1):
+                #Rogue
+                currenctChara = Rogue(charaName)
+            elif (charaClass == 2):
+                #Tank
+                currenctChara = Tank(charaName)
+            elif (charaClass ==3):
+                #Wizard
+                currenctChara = Wizard(charaName)
+            elif (charaClass == 4):
+                #Paladin
+                currenctChara = Paladin(charaName)
+
+            self.players.insert(i,currenctChara)
+
+            print("Listo el PJ para el jugador",i+1)
             self.cons.cls()
         print("Terminada la creación de PJs :D")
         self.cons.cls();
+
+        self._beginGame()
+    
+    def _beginGame(self):
+        for i in self.players:
+            #TODO
+            i.atacar(i)
         
