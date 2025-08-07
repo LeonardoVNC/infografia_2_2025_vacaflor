@@ -56,6 +56,15 @@ class Ring:
                 #Paladin
                 currenctChara = Paladin(charaName)
 
+            print("Selecciona la habilidad que tendrá tu PJ:")
+            currenctChara.mostrarHabilidad()
+            selectedHab = self.cons.inputInt("")
+            if (selectedHab < 1 or selectedHab > 2):
+                print("Jaja por chistoso te pongo una al azar >:c")
+                selectedHab = random.randint(1,2)
+            currenctChara.setHab(selectedHab)
+            self.cons.cls();
+
             self.players.insert(i,currenctChara)
 
             print("Listo el PJ para el jugador",i+1)

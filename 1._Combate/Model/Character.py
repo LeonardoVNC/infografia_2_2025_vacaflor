@@ -49,3 +49,7 @@ class Character(ABC):
     @abstractmethod
     def usarHabilidad(self, objetivo): 
         pass
+
+    @abstractmethod
+    def mostrarHabilidad(self): 
+        pass
