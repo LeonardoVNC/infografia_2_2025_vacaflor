@@ -19,7 +19,7 @@ class Ring:
             self.num_players = 2
         self.cons.cls()
         
-        self.num_turns = self.cons.inputInt("Cúantas rondas máximo planean jugar??\n")
+        self.num_turns = self.cons.inputInt("Cuántas rondas máximo planean jugar??\n")
         if (self.num_turns < 1):
             print("Dale hermano, mínimo 1 turno pues")
             self.num_turns = 1
@@ -66,7 +66,41 @@ class Ring:
         self._beginGame()
     
     def _beginGame(self):
+        print("Iniciando la partida, en sus puestos!")
+        self.cons.cls();
+        for turn in range(1, self.num_turns):
+            print("Iniciando Ronda",turn)
+            self.cons.cls()
+            self._playTurn()
+            
+            #Comprobar que jugadores estan KO y sacarlos del arreglo
+
+            print("Fin de la Ronda",turn)
+            self.cons.cls()
+        #Fin de turnos, quien tiene mas vida
+
+    def _playTurn(self):
+        random.shuffle(self.players)
         for i in self.players:
-            #TODO
-            i.atacar(i)
-        
+            print("Empieza el turno de",i.name)
+            act = self.cons.inputInt(f"Qué hará {i.name} en este turno?\n1 - Atacar\n2 - Usar habilidad\n")
+            if (act > 2):
+                print("Por gracioso te pongo uno al azar >:c")
+                act = random.randint(1,2)
+            self.cons.cls()
+
+            msg = f"Quién es el objetivo de {i.name}"
+            for j in range(1, self.num_players+1):
+                msg = msg+f"\n{j} - {self.players[j-1].name}"
+            obj = self.cons.inputInt(msg+"\n")
+            if (obj > self.num_players):
+                obj = random.randint(1,self.num_players-1)
+                print("Por gracioso te pongo uno al azar >:c")
+            self.cons.cls()
+
+            if (act == 1):
+                i.atacar(self.players[obj-1])
+            elif (act == 2):
+                i.usarHabilidad(self.players[obj-1])
+            self.cons.wait()
+            self.cons.cls()
