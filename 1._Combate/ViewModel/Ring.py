@@ -73,11 +73,25 @@ class Ring:
             self.cons.cls()
             self._playTurn()
             
-            #Comprobar que jugadores estan KO y sacarlos del arreglo
+            print("Resumen:")
+            self._updatePlayers()
+            self.cons.wait()
+
+            if(self.num_players == 1):
+                print(f"El último PJ en pie es {self.players[0].name}!!!")
+                self.cons.endGame()
+            if(self.num_players == 0):
+                print(f"Increible, hemos llegado a un empate!!!")
+                self.cons.endGame()
 
             print("Fin de la Ronda",turn)
             self.cons.cls()
-        #Fin de turnos, quien tiene mas vida
+        print("Se ha alcanzado el máximo de rondas")
+        max: Character = self.players[0]
+        for i in self.players:
+            if (i.hp > max.hp):
+                max = i
+        print(f"El PJ con más vida es {max.name}, felicidades por la victoria!!")
 
     def _playTurn(self):
         random.shuffle(self.players)
@@ -104,3 +118,16 @@ class Ring:
                 i.usarHabilidad(self.players[obj-1])
             self.cons.wait()
             self.cons.cls()
+
+    def _updatePlayers(self):
+        alivePlayers: list[Character] = []
+        numPlay = 0
+        for i in range(0, self.num_players):
+            if(not self.players[i].isKO()):
+                print(f"A {self.players[i].name} le quedan {self.players[i].hp}HP")
+                numPlay = numPlay+1
+                alivePlayers.insert(i, self.players[i])
+            else:
+                print(f"{self.players[i].name} fue debilitado")
+        self.players = alivePlayers
+        self.num_players = numPlay

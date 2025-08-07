@@ -17,3 +17,7 @@ class Console:
             print("Ingrese un número válido por favor")
             print("Cerrando programa")
             sys.exit()
+        
+    def endGame(self):
+        print("Fin de la partida!")
+        sys.exit()
