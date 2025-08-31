@@ -6,7 +6,9 @@ extends CharacterBody2D
 
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 var has_key = false
+var has_gem = false
 @onready var state_machine = $AnimationTree.get("parameters/playback")
+@onready var timer: Timer = $Timer
 
 enum {
 	WALK,
@@ -46,6 +48,22 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
-	print("OUCH!")
-	hp-=1
-	auch.emit()
+	if (!has_gem):
+		print("OUCH!")
+		hp-=1
+		auch.emit()
+	elif (area.name == "Fireball"):
+		print("Pero el hechicero ni se inmuta")
+	else:
+		print("Enemigo eh")
+		
+func get_gem():
+	print("Jugador tiene gema activa wiwi")
+	has_gem = true;
+	timer.one_shot = true
+	timer.wait_time = 5
+	timer.start()
+	
+func _on_timer_timeout() -> void:
+	has_gem = false
+	print("Se acabo la gema chicos")
