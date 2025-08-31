@@ -1,15 +1,24 @@
 extends Node2D
 
 @onready var door: Area2D = $Door
+@onready var player = $Player
 
 func _ready() -> void:
 	$Key.collected.connect(on_key_collected)
 	$Door.player_success.connect(on_player_success)
+	player.auch.connect(on_player_damaged)
 	
 func on_key_collected():
-	$Player.has_key = true
+	player.has_key = true
 	$Door.open()
 	
 func on_player_success():
 	$SuccessLabel.visible = true
 	print("Ganamo")
+
+func on_player_damaged():
+	$HPLabel.text = "HP: %d" %player.hp
+	if player.hp <= 0:
+		$SuccessLabel.text = "Muelto :c"
+		$SuccessLabel.visible = true
+		get_tree().paused = true

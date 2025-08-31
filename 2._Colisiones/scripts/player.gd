@@ -16,6 +16,9 @@ enum {
 }
 
 var state = IDLE
+var hp = 3
+
+signal auch
 
 func _physics_process(delta: float) -> void:
 	# add gravity
@@ -44,3 +47,5 @@ func _physics_process(delta: float) -> void:
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	print("OUCH!")
+	hp-=1
+	auch.emit()
