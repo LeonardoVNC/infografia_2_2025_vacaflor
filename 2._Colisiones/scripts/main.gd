@@ -4,6 +4,12 @@ extends Node2D
 
 func _ready() -> void:
 	$Key.collected.connect(on_key_collected)
+	$Door.player_success.connect(on_player_success)
 	
 func on_key_collected():
-	door.open()
+	$Player.has_key = true
+	$Door.open()
+	
+func on_player_success():
+	$SuccessLabel.visible = true
+	print("Ganamo")

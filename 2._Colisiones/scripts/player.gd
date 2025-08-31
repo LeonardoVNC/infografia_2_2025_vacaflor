@@ -5,6 +5,7 @@ extends CharacterBody2D
 @export var jump_velocity: float = -400.0
 
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
+var has_key = false
 @onready var state_machine = $AnimationTree.get("parameters/playback")
 
 enum {
