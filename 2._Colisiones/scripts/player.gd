@@ -60,10 +60,12 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 func get_gem():
 	print("Jugador tiene gema activa wiwi")
 	has_gem = true;
+	$Sprite2D.modulate = Color(0.5, 0.8, 1.0)
 	timer.one_shot = true
 	timer.wait_time = 5
 	timer.start()
 	
 func _on_timer_timeout() -> void:
 	has_gem = false
+	$Sprite2D.modulate = Color(1, 1, 1)
 	print("Se acabo la gema chicos")
