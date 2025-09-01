@@ -46,8 +46,11 @@ scale = Vector2(8.13, 1)
 position = Vector2(580, 174)
 scale = Vector2(8.13, 1)
 
-[node name="EnemyB" parent="." instance=ExtResource("6_tefeu")]
-position = Vector2(617, 472)
+[node name="EnemyB" parent="." groups=["EnemyB"] instance=ExtResource("6_tefeu")]
+position = Vector2(611, 439)
+
+[node name="EnemyB2" parent="." groups=["EnemyB"] instance=ExtResource("6_tefeu")]
+position = Vector2(1104, 92)
 
 [node name="SuccessLabel" type="Label" parent="."]
 visible = false

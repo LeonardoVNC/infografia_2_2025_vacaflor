@@ -54,12 +54,11 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 		auch.emit()
 	elif (area.name == "Fireball"):
 		print("Pero el hechicero ni se inmuta")
-	else:
-		print("Enemigo eh")
 		
 func get_gem():
 	print("Jugador tiene gema activa wiwi")
 	has_gem = true;
+	$Hitbox/CollisionShape2D.disabled=false
 	$Sprite2D.modulate = Color(0.5, 0.8, 1.0)
 	timer.one_shot = true
 	timer.wait_time = 5
@@ -67,5 +66,12 @@ func get_gem():
 	
 func _on_timer_timeout() -> void:
 	has_gem = false
+	$Hitbox/CollisionShape2D.disabled=true
 	$Sprite2D.modulate = Color(1, 1, 1)
 	print("Se acabo la gema chicos")
+
+func _on_hitbox_area_entered(area: Area2D) -> void:
+	if has_gem:
+		print("Vuela alto enemy pero ahora en hitbox")
+		area.get_parent().queue_free()
+	
